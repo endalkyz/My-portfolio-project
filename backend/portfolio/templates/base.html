@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    
+    {% load static %}
+    
+
+     <link rel="icon" type="image/x-icon" href="{% static '/images/EYZ_logo.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+<div class="nav-logo">
+    <a href="{% url 'home' %}" class="logo-link">
+        <img src="{% static 'images/favicon.png' %}" alt="Logo" class="logo-image">
+    </a>
+</div>
+
+        <ul class="nav-menu">
+            <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
+            <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+            <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+            <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
+            <li class="nav-item"><a href="#certifications" class="nav-link">Certifications</a></li>
+            <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </div>
+</nav>
+
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; {% now "Y" %} 
+                {% if personal_info %}
+                    {{ personal_info.full_name }}
+                {% else %}
+                    Your Name
+                {% endif %}. All rights reserved.
+            </p>
+        </div>
+                        <!-- Social Links in Footer -->
+                <div class="footer-social-links">
+                    {% for link in social_links %}
+                    <a href="{{ link.url }}" target="_blank" class="footer-social-link" title="{{ link.platform }}">
+                        <i class="fab fa-{{ link.platform|lower }}"></i>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+<script src="{% static 'js/main.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+</body>
+</html>

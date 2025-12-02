@@ -1,0 +1,36 @@
+# ----------------------------
+# Python
+# ----------------------------
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+env/
+venv/
+ENV/
+*.swp
+*.swo
+*.coverage
+*.log
+*.bak
+
+# ----------------------------
+# Django
+# ----------------------------
+*.sqlite3         # if using SQLite locally
+media/            # uploaded files
+staticfiles/      # collected static files
+.env              # environment variables
+
+# ----------------------------
+# IDEs & OS
+# ----------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+# PostgreSQL
+# ----------------------------
+*.dump            # database dumps if any
