@@ -1,0 +1,49 @@
+pipeline {
+    agent any
+
+    environment {
+        DJANGO_SETTINGS_MODULE = 'portfolio.settings'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // On Windows, git is usually available via git.exe
+                bat 'git clone https://github.com/endalkyz/My-portfolio-project.git || cd My-portfolio-project && git pull'
+            }
+        }
+
+        stage('Build Docker') {
+            steps {
+                // Use docker-compose.exe for Windows
+                bat 'docker-compose.exe build'
+                // Alternative if docker-compose.exe is in PATH:
+                // bat 'docker-compose build'
+            }
+        }
+
+        stage('Run Migrations') {
+            steps {
+                bat 'docker-compose.exe run web python manage.py migrate'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'docker-compose.exe run web python manage.py test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                bat 'docker-compose.exe up -d'
+            }
+        }
+    }
+
+    post {
+        always {
+            bat 'docker-compose.exe down'
+        }
+    }
+}
