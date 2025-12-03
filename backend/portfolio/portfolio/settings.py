@@ -73,10 +73,10 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'My-Portfolio'),
+        'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
         'USER': os.environ.get('DB_USER', 'postgres'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'admin'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
@@ -130,3 +130,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # This should point to your static folder
 ]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.169']
