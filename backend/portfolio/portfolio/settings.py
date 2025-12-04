@@ -80,7 +80,12 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database (PostgreSQL)
 DATABASES = {
     'default': {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'),conn_max_age=600,ssl_require=True),
+        'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
+},
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
         'USER': os.environ.get('DB_USER', 'postgres'),
@@ -88,7 +93,11 @@ DATABASES = {
         'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': os.environ.get('DB_PORT', '5432'),
     }
-}
+# Render-specific settings
+if 'RENDER' in os.environ:
+    # Render uses port 10000
+    ALLOWED_HOSTS = ['.onrender.com']
+    DEBUG = False
 
 # REST Framework
 REST_FRAMEWORK = {
