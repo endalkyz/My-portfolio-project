@@ -8,42 +8,48 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // On Windows, git is usually available via git.exe
-                bat 'git clone https://github.com/endalkyz/My-portfolio-project.git || cd My-portfolio-project && git pull'
+                git branch: 'main', url: 'https://github.com/endalkyz/My-portfolio-project.git'
             }
         }
 
         stage('Build Docker') {
             steps {
-                // Use docker-compose.exe for Windows
-                bat 'docker-compose.exe build'
-                // Alternative if docker-compose.exe is in PATH:
-                // bat 'docker-compose build'
+                dir('backend/portfolio') {
+                    bat 'docker-compose build'
+                }
             }
         }
 
         stage('Run Migrations') {
             steps {
-                bat 'docker-compose.exe run web python manage.py migrate'
+                dir('backend/portfolio') {
+                    bat 'docker-compose run web python manage.py migrate'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                bat 'docker-compose.exe run web python manage.py test'
+                dir('backend/portfolio') {
+                    bat 'docker-compose run web python manage.py test'
+                }
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'docker-compose.exe up -d'
+                dir('backend/portfolio') {
+                    bat 'docker-compose up -d'
+                }
             }
         }
     }
 
     post {
         always {
-            bat 'docker-compose.exe down'
+            dir('backend/portfolio') {
+                bat 'docker-compose down || exit 0'
+            }
         }
     }
 }
