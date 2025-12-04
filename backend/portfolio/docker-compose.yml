@@ -22,6 +22,12 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+    environment:
+      DB_NAME: my_portfolio
+      DB_USER: postgres
+      DB_PASSWORD: admin
+      DB_HOST: db
+      DB_PORT: 5432
     depends_on:
       db:
         condition: service_healthy

@@ -78,17 +78,31 @@ TEMPLATES = [
 # WSGI
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
-# Database (PostgreSQL)
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'admin'),
-        'HOST': os.environ.get('DB_HOST', 'db'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+import os
+import dj_database_url
+
+if os.environ.get("DATABASE_URL"):
+    # Running on Render (or any cloud)
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=os.environ["DATABASE_URL"],
+            conn_max_age=600,
+            ssl_require=True
+        )
     }
-}
+else:
+    # Running locally (Docker Compose)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
+            'USER': os.environ.get('DB_USER', 'postgres'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'admin'),
+            'HOST': os.environ.get('DB_HOST', 'db'),  # Important for Docker
+            'PORT': os.environ.get('DB_PORT', '5432'),
+        }
+    }
+
 
 # REST Framework
 REST_FRAMEWORK = {
