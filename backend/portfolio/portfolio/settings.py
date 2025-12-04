@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 # Load environment variables
 load_dotenv()
@@ -12,6 +13,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+# Security
+SECRET_KEY = os.environ.get('SECRET_KEY', 'change-me')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.169']
+ALLOWED_HOSTS = ['*']  # You can change to your render URL later
 
 # Installed apps
 INSTALLED_APPS = [
@@ -44,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # add Whitenoise
 ]
 
 # URLs
@@ -72,6 +80,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database (PostgreSQL)
 DATABASES = {
     'default': {
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL')),
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
         'USER': os.environ.get('DB_USER', 'postgres'),
@@ -127,10 +136,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEBUG = True
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # This should point to your static folder
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [ BASE_DIR / 'static',  # This should point to your static folder
 ]
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.169']
-ALLOWED_HOSTS = ['*']
+
+
+
+
