@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database (PostgreSQL)
 DATABASES = {
     'default': {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL',ssl_require=True, conn_max_age=600)),
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'),conn_max_age=600,ssl_require=True),
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
         'USER': os.environ.get('DB_USER', 'postgres'),
