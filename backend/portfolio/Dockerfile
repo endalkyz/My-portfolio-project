@@ -42,11 +42,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
-# Expose port
-EXPOSE 8000
+# Use dynamic port provided by Railway
+ENV PORT 8000
+EXPOSE $PORT
 
-# Run Gunicorn (production server)
-CMD ["gunicorn", "portfolio.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+# Run Gunicorn using dynamic port
+CMD ["sh", "-c", "gunicorn portfolio.wsgi:application --bind 0.0.0.0:$PORT --workers 3"]
+
 
