@@ -132,4 +132,5 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.169']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.169']
+ALLOWED_HOSTS = ['*']
