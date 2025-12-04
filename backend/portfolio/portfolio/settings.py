@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'portfolio.wsgi.application'
 # Database (PostgreSQL)
 DATABASES = {
     'default': {
-        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL')),
+        'default': dj_database_url.config(default=os.environ.get('DATABASE_URL',ssl_require=True, conn_max_age=600)),
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
         'USER': os.environ.get('DB_USER', 'postgres'),
@@ -139,7 +139,9 @@ STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [ BASE_DIR / 'static',  # This should point to your static folder
+
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
