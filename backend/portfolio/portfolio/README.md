@@ -17,9 +17,7 @@ python -m venv venv
 venv\Scripts\activate
 
 
-No problem Endalkachew — let me give you a clear roadmap so you know exactly which tool comes first, second, third… step-by-step.
-
-Everything becomes easy once the order is correct.
+The clear roadmap which tool comes first, second, third… step-by-step.
 
 ✅ THE CORRECT ORDER FOR YOUR PROJECT (Django Portfolio)
 From Development → CI/CD → Monitoring → Deployment
