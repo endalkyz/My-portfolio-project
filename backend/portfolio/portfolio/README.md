@@ -2,6 +2,9 @@
 https://github.com/endalkyz/My-portfolio-project.git
 cd My-portfolio-project
 
+To access the repository address from local using Git Bash:
+cd c/user/enda/My-portfolio-project/backend/portfolio
+
 # future changes, you can do:
 git add .
 git commit -m "Describe your change"
