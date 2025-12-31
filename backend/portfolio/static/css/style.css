@@ -295,12 +295,12 @@ body {
     align-items: center;
 
     /* Floating animation */
-    animation: float 4s ease-in-out infinite;
+    animation: float 10s ease-in-out infinite;
 }
 
 .image-placeholder {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.1);
     display: flex;

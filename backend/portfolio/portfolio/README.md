@@ -1,5 +1,6 @@
 # The repository url: 
 https://github.com/endalkyz/My-portfolio-project.git
+cd My-portfolio-project
 
 # future changes, you can do:
 git add .

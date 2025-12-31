@@ -93,6 +93,9 @@ if os.environ.get("DATABASE_URL"):
 else:
     # Running locally (Docker Compose)
     DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
+    DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
