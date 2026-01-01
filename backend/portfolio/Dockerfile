@@ -1,17 +1,14 @@
-FROM python:3.10-slim
 
-# Environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+FROM python:3.10
+
+# Set working directory
 WORKDIR /app
 
-# System dependencies (needed for psycopg2)
-RUN apt-get update && apt-get install -y \
-    gcc \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+# Prevent .pyc files + ensure stdout/stderr works
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Install Python dependencies
+# Install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -19,11 +16,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
-# Koyeb provides PORT dynamically
-ENV PORT=8000
-EXPOSE 8000
+# Use dynamic port provided by Railway
+ENV PORT 8000
+EXPOSE $PORT
 
-# Run application
+# Run Gunicorn using dynamic port
 CMD ["sh", "-c", "gunicorn portfolio.wsgi:application --bind 0.0.0.0:$PORT --workers 3"]
+
+
