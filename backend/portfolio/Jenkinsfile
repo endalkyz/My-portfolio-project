@@ -2,50 +2,28 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/endalkyz/My-portfolio-project.git'
             }
         }
 
-        stage('Build Docker') {
+        stage('Build Image') {
             steps {
                 dir('backend/portfolio') {
-                    bat 'docker-compose build'
+                    sh 'docker build -t portfolio:test .'
                 }
             }
         }
 
-        stage('Run Migrations') {
+        stage('Run Tests') {
             steps {
                 dir('backend/portfolio') {
-                    bat 'docker-compose run web python manage.py migrate'
+                    sh '''
+                    docker run --rm portfolio:test \
+                    python manage.py test
+                    '''
                 }
-            }
-        }
-
-        stage('Test') {
-            steps {
-                dir('backend/portfolio') {
-                    bat 'docker-compose run web python manage.py test'
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                dir('backend/portfolio') {
-                    bat 'docker-compose up -d'
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            dir('backend/portfolio') {
-                bat 'docker-compose down'
             }
         }
     }
