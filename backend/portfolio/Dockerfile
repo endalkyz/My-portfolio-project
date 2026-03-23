@@ -25,7 +25,8 @@
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
 # Use official Python image
-FROM python:3.10
+#FROM python:3.10
+FROM python:3.11
 
 # Set working directory
 WORKDIR /app
