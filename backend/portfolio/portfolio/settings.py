@@ -1,8 +1,7 @@
+
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url
-
 # Load environment variables
 load_dotenv()
 
@@ -10,20 +9,12 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY
-# SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
-# DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
-# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-
-# Security
-SECRET_KEY = os.environ.get('SECRET_KEY', 'change-me')
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.169']
-ALLOWED_HOSTS = ['*']  # You can change to your render URL later
-PORT = int(os.environ.get("PORT", 8000))
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
+DEBUG = True
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Installed apps
 INSTALLED_APPS = [
-    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third-party apps
+    # Third-party
     'rest_framework',
     'corsheaders',
     'django_filters',
@@ -43,16 +34,16 @@ INSTALLED_APPS = [
 
 # Middleware
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',                   # CORS first
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',             # WhiteNoise for static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # add Whitenoise
 ]
 
 # URLs
@@ -62,7 +53,7 @@ ROOT_URLCONF = 'portfolio.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # Custom templates folder
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,34 +69,24 @@ TEMPLATES = [
 # WSGI
 WSGI_APPLICATION = 'portfolio.wsgi.application'
 
-import os
-import dj_database_url
-
-if os.environ.get("DATABASE_URL"):
-    # Running on Render (or any cloud)
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=os.environ["DATABASE_URL"],
-            conn_max_age=600,
-            ssl_require=True
-        )
+# DATABASE (LOCAL POSTGRESQL)
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
+#         'USER': os.environ.get('DB_USER', 'postgres'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'admin'),
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+# DATABASE (SQLITE)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    # Running locally (Docker Compose)
-    DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME', 'my_portfolio'),
-            'USER': os.environ.get('DB_USER', 'postgres'),
-            'PASSWORD': os.environ.get('DB_PASSWORD', 'admin'),
-            'HOST': os.environ.get('DB_HOST', 'db'),  # Important for Docker
-            'PORT': os.environ.get('DB_PORT', '5432'),
-        }
-    }
-
 
 # REST Framework
 REST_FRAMEWORK = {
@@ -119,21 +100,13 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 }
 
-# CORS settings
-if DEBUG:
-    CORS_ALLOW_ALL_ORIGINS = True
-else:
-    CORS_ALLOW_ALL_ORIGINS = False
-    CORS_ALLOWED_ORIGINS = [
-        "https://your-vercel-app.vercel.app",
-    ]
+# CORS
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'   # Collect static files here
-STATICFILES_DIRS = [BASE_DIR / 'static'] # Your app's static folder
-
-# WhiteNoise for serving static files
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
@@ -148,19 +121,4 @@ USE_TZ = True
 
 # Default primary key
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# In backend/portfolio/portfolio/settings.py
-DEBUG = True
-
-STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [ BASE_DIR / 'static',  # This should point to your static folder
-
-]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-
-
 
