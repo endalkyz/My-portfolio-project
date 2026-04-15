@@ -29,7 +29,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'core',
-    'api',
+    # 'api',
 ]
 
 # Middleware
