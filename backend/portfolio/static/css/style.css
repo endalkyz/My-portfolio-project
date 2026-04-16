@@ -1146,7 +1146,7 @@ section {
 
 
 /* -----------------------------
-   CONTACT SECTION (MODERN UI)
+   CONTACT SECTION
 ------------------------------ */
 
 .contact {
@@ -1154,6 +1154,7 @@ section {
     background: linear-gradient(135deg, #f8f9fc, #eef1f7);
 }
 
+/* GRID LAYOUT */
 .contact-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -1162,12 +1163,16 @@ section {
     padding: 2rem;
 }
 
+/* -----------------------------
+   CONTACT INFO
+------------------------------ */
+
 .contact-info {
     background: #ffffff;
     padding: 2rem;
     border-radius: 18px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    border-left: 2px solid var(--primary-color);
+    border-left: 3px solid var(--primary-color);
     transition: 0.3s ease;
 }
 
@@ -1177,7 +1182,6 @@ section {
 }
 
 .contact-info h3 {
-    color: var(--text-dark);
     margin-bottom: 1rem;
 }
 
@@ -1185,25 +1189,20 @@ section {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: var(--text-light);
     margin-bottom: 0.8rem;
-    font-size: 1rem;
+    color: var(--text-light);
 }
 
-.contact-details i {
-    color: var(--primary-color);
-    font-size: 1.2rem;
-}
+/* -----------------------------
+   CONTACT FORM
+------------------------------ */
 
-
-
-/* Contact Form */
 .contact-form {
     background: #ffffff;
     padding: 2rem;
     border-radius: 18px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    transition: 0.4s ease;
+    transition: 0.3s ease;
 }
 
 .contact-form:hover {
@@ -1222,7 +1221,6 @@ section {
     border: 1px solid #dce1eb;
     border-radius: 12px;
     background: #f8f9fc;
-    font-size: 0.95rem;
     transition: 0.3s ease;
 }
 
@@ -1231,24 +1229,68 @@ section {
     border-color: var(--primary-color);
     background: #fff;
     box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.12);
+    outline: none;
 }
 
+/* BUTTON */
 .contact-form button {
-    margin-top: 5px;
     padding: 12px 28px;
     border-radius: 12px;
+    transition: 0.3s ease;
 }
 
+.contact-form button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
 
+/* -----------------------------
+   SUCCESS MESSAGE
+------------------------------ */
 
-/* Mobile adjustments */
+.alert-success {
+    background: #e6f9f0;
+    color: #1e7e34;
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border-left: 5px solid #28a745;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.alert-success {
+    background: #e6f9f0;
+    color: #1e7e34;
+    padding: 14px 18px;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border-left: 5px solid #28a745;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* -----------------------------
+   MOBILE RESPONSIVE
+------------------------------ */
+
 @media (max-width: 768px) {
     .contact-content {
+        grid-template-columns: 1fr;
         padding: 1rem;
         gap: 2rem;
     }
 }
-
 
 
 /* Education Section */

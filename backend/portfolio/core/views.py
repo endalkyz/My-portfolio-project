@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect
 from django.db.models import Count
 from datetime import date
 from django.contrib import messages
-from core.models import PersonalInfo, Skill, Project, Experience, Certification, SocialLink, Education
+from core.models import PersonalInfo, ContactMessage, Skill, Project, Experience, Certification, SocialLink, Education
 
-def home(request):
+def home(request, scroll=None):
     try:
         # Get all data from database
         personal_info = PersonalInfo.objects.first()
@@ -47,32 +47,30 @@ def home(request):
             'experience_years': experience_years,
         }
         
+        scroll = request.GET.get("scroll")
+        if scroll:
+            context["scroll_to"]="contact"
+        
         return render(request, 'portfolio.html', context)
     
     except Exception as e:
         print(f"Error in home view: {e}")
         # Return a basic template even if there's an error
         return render(request, 'portfolio.html', {})
-    
 
- 
+
 def contact_submit(request):
-    if request.method == 'POST':
-        # Handle contact form submission
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        subject = request.POST.get('subject')
-        message = request.POST.get('message')
-        
-        # Here you would typically:
-        # 1. Save to database
-        # 2. Send email
-        # 3. etc.
-        
-        print(f"Contact form received: {name}, {email}, {subject}, {message}")
-        
-        # Redirect back to home with success message
-        return redirect('home')
+    if request.method == "POST":
+        ContactMessage.objects.create(
+            name=request.POST.get("name"),
+            email=request.POST.get("email"),
+            subject=request.POST.get("subject"),
+            message=request.POST.get("message")
+        )
+
+        messages.success(request, "Your message has been sent successfully!")
     
-    # If not POST, redirect to home
-    return redirect('home')
+    return redirect('/?scroll=contact')  # or redirect back to portfolio page
+    # return render(request, 'portfolio.html', context)
+
+    # return render(request, "portfolio.html" )

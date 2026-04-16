@@ -56,11 +56,19 @@
                 {% endif %}. All rights reserved.
             </p>
         </div>
-                        <!-- Social Links in Footer -->
+
+
+                <!-- Social Links in Footer -->
                 <div class="footer-social-links">
                     {% for link in social_links %}
                     <a href="{{ link.url }}" target="_blank" class="footer-social-link" title="{{ link.platform }}">
-                        <i class="fab fa-{{ link.platform|lower }}"></i>
+                        
+                        {% if link.platform|lower == "website" %}
+                            <i class="fas fa-globe"></i>
+                        {% else %}
+                            <i class="fab fa-{{ link.platform|lower }}"></i>
+                        {% endif %}
+                        
                     </a>
                     {% endfor %}
                 </div>

@@ -9,7 +9,18 @@
     {% endif %}
 {% endblock %}
 
+
 {% block content %}
+{% if scroll_to == "contact" %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const el = document.querySelector("#contact");
+            if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+            }
+        });
+    </script>
+{% endif %}
     <!-- Home Section  -->
     <section id="home" class="hero">
         <div class="container">
@@ -292,7 +303,13 @@
                         {% endif %}
                     </div>
                 </div>
-                <form class="contact-form" method="post">
+                    <!-- SUCCESS / ERROR MESSAGES HERE -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="success">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+                <form class="contact-form" method="post" action="{% url 'contact' %}">
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Your Name" required>
@@ -306,7 +323,7 @@
                     <div class="form-group">
                         <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Messagesssssss</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
             </div>
         </div>

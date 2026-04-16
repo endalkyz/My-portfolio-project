@@ -1,4 +1,5 @@
 from django.contrib import admin
+from .models import ContactMessage
 from .models import PersonalInfo, Skill, Project, Experience, Certification, SocialLink, Education
 
 @admin.register(PersonalInfo)
@@ -46,3 +47,6 @@ class EducationAdmin(admin.ModelAdmin):
     list_filter = ['degree', 'currently_studying', 'start_date']
     search_fields = ['institution', 'field_of_study']
     ordering = ['-start_date']
+
+
+admin.site.register(ContactMessage)
