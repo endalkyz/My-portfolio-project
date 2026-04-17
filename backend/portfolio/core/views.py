@@ -68,7 +68,7 @@ def contact_submit(request):
             message=request.POST.get("message")
         )
 
-        messages.success(request, "Your message has been sent successfully!")
+        messages.success(request, "Your message has been sent successfully to Endalkachew!")
     
     return redirect('/?scroll=contact')  # or redirect back to portfolio page
     # return render(request, 'portfolio.html', context)
