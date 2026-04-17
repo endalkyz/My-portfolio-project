@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Portfolio{% endblock %}</title>
-    
+
     {% load static %}
-    
+
 
      <link rel="icon" type="image/x-icon" href="{% static '/images/EYZ_logo.ico' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -48,7 +48,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; {% now "Y" %} 
+            <p>&copy; {% now "Y" %}
                 {% if personal_info %}
                     {{ personal_info.full_name }}
                 {% else %}
@@ -58,20 +58,23 @@
         </div>
 
 
-                <!-- Social Links in Footer -->
-                <div class="footer-social-links">
-                    {% for link in social_links %}
-                    <a href="{{ link.url }}" target="_blank" class="footer-social-link" title="{{ link.platform }}">
-                        
-                        {% if link.platform|lower == "website" %}
-                            <i class="fas fa-globe"></i>
-                        {% else %}
-                            <i class="fab fa-{{ link.platform|lower }}"></i>
-                        {% endif %}
-                        
-                    </a>
-                    {% endfor %}
-                </div>
+
+<!-- Social Links in Footer -->
+<div class="footer-social-links">
+    {% for link in social_links %}
+    <a href="{{ link.url }}" target="_blank" class="footer-social-link" title="{{ link.platform }}">
+
+        {% if link.platform|lower == "website" %}
+            <i class="fas fa-globe"></i>
+        {% else %}
+            <i class="fab fa-{{ link.platform|lower }}"></i>
+        {% endif %}
+
+    </a>
+    {% endfor %}
+
+</div>
+
             </div>
         </div>
     </footer>
