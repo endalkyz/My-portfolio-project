@@ -160,3 +160,11 @@ Full monitoring + automation 🎉
 docker-compose down
 docker-compose build
 docker-compose up -d
+
+******************************************
+1. Modify my code on the local machine 
+2. Push to git
+3. On the bash Console, go to My-portfolio-project/backend/portfolio 
+4. Git Pull 
+5. Reload  Endalkachew.pythonanywhere.com
+******************************************
